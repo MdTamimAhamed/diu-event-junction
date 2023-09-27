@@ -4,7 +4,7 @@ import React from 'react'
 
 function EventCtaBtn() {
   return (
-    <div>EventCtaBtn</div>
+    <div>This is EventCtaBtn...</div>
   )
 }
 
