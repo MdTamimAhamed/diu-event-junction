@@ -1,9 +1,10 @@
 import React from 'react'
+import SignupForm from '../forms/SignupForm'
 
 function UserSignup() {
   return (
     <>
-      <h1>This is signup page</h1>
+      <SignupForm/>
     </>
   )
 }
