@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
-import LoginForm from '../forms/LoginForm'
-import AdminLoginForm from '../forms/AdminLoginForm'
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import { useState } from 'react'
 import RoleSelectBtn from '../../Utilities/buttons/RoleSelectBtn'
+import SignupForm from '../forms/SignupForm'
+import AdminSignupForm from '../forms/AdminSignupForm'
 
-function Login() {
-
+function Signup() {
+  
   const [selectRole, setSelectRole] = useState('')
 
   return (
@@ -31,13 +33,13 @@ function Login() {
             />
       </div>
       {(selectRole === 'admin')?
-        <AdminLoginForm/>
+        <AdminSignupForm/>
         :
-        <LoginForm/>
+        <SignupForm/>
       }
       </div>
     </>
   )
 }
 
-export default Login
+export default Signup

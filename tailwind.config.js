@@ -9,10 +9,13 @@ export default {
 
       //color scheme 
       colors:{
-        'primary':'#560BAD',      //how to use in tailwind : className = 'bg-primary text-light-gray'
+        'primary':'#560BAD',
+        'primaryHover':'#353232',      //how to use in tailwind : className = 'bg-primary text-light-gray'
         'secondary':'#F72585',
+        'secondaryHover':'#DD096A',
         'off-white':'#F8F9FA',
         'black':'#000000',
+        'blackHover':'#2d2d2d',
         'white':'#FFFFFF',
         'light-gray': '#B9B9B9',
         'deep-gray':'#4F4F4F',
@@ -25,6 +28,7 @@ export default {
         'poppins' : ['Poppins', 'sans-serif'], //how to use in tailwind : className = 'font-poppins'
         'roboto' : ['Roboto', 'sans-serif'],
         'lato' : ['Lato', 'sans-serif'],
+        'comforter':['Comforter Brush','cursive'],
       }
     },
   },

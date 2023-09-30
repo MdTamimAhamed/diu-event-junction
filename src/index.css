@@ -10,3 +10,10 @@
         font-family: 'Roboto','Poppins', sans-serif;
     }
 }
+
+/*Default background*/
+@layer base{
+    body{
+        background-color: #F8F9FA;
+    }
+}

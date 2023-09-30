@@ -1,17 +1,30 @@
 import './App.css'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+
+import Signup from './components/signups/Signup'
+import SignupForm from './components/forms/SignupForm'
+import AdminSignupForm from './components/forms/AdminSignupForm'
+
 import Login from './components/logins/Login'
-import UserSignup from './components/signups/UserSignup'
+import LoginForm from './components/forms/LoginForm'
+import AdminLoginForm from './components/forms/AdminLoginForm'
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path='/' element = {<Login/>} />
-          <Route path='/signup' element = {<UserSignup/>} />
-          <Route path='/admin-login' />
-          <Route path='/admin-signup' />
+
+          <Route path='/signup' element = {<Signup/>}/>
+          <Route path='/user-signup' element = {<SignupForm/>} />
+          <Route path='/admin-signup' element={<AdminSignupForm/>} />
+
+          <Route path='/' element = {<Login/>}/>
+          <Route path='/user-login' element = {<LoginForm/>} />
+          <Route path='/admin-login' element={<AdminLoginForm/>} />
+
+          
+          <Route path='/admin-login' />   
           <Route path='/home' />
           <Route path='/main-home' />
         </Routes>
