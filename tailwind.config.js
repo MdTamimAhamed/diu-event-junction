@@ -15,6 +15,7 @@ export default {
         'secondaryHover':'#DD096A',
         'off-white':'#F8F9FA',
         'black':'#000000',
+        'blackHover':'#2d2d2d',
         'white':'#FFFFFF',
         'light-gray': '#B9B9B9',
         'deep-gray':'#4F4F4F',

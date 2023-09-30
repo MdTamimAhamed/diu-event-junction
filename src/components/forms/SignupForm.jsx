@@ -1,18 +1,13 @@
 import React from 'react'
-import Role from '../role/Role'
 import LoginSignupFormBtn from '../../Utilities/buttons/LoginSignupFormBtn'
 import FormInputHandler from '../formInputHandler/FormInputHandler'
 import Welcom from './Welcom'
+import { Link } from 'react-router-dom'
 
 function SignupForm() {
-  const roleArr = ['user','admin']
   return (
     <>  
-        <div className='w-full h-screen flex flex-col justify-center items-center'>
-        <Role 
-          role = {roleArr[0]}
-        />
-        <div className='flex justify-center'>
+        <div className='flex'>
           <div className='h-[490px] w-[400px] shadow-[0px_5px_25px_rgba(0,0,0,0.1)] bg-white rounded-tl-lg rounded-bl-lg '>
             <div className='px-8 mt-10'>
               <h2 className='text-2xl font-medium'>Sign up</h2>
@@ -67,14 +62,15 @@ function SignupForm() {
 
               <div className='py-6'>
                 <p className='text-sm text-center'>Already have an account? 
-                <span className=' font-bold text-secondary cursor-pointer hover:underline'> Login</span>
+                <span className=' font-bold text-secondary cursor-pointer hover:underline'> 
+                  <Link to="/">Login</Link>
+                </span>
                 </p>
               </div>
             </form>
           </div>
           <Welcom/>
         </div>
-      </div>
     </>
   )
 }
