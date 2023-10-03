@@ -5,35 +5,93 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import ToolTip from "../tooltip/ToolTip";
 import { useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../../Utilities/base/baseURL";
 
-function AdminSignupForm() {
+function AdminSignupForm({ setSuccessMsg }) {
   const [toolTip, setToolTip] = useState(false);
   const handleToolTip = () => {
     setToolTip(!toolTip);
   };
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
+  const [error, setError] = useState({});
+
+  async function onSubmitHandler(e) {
+    e.preventDefault();
+
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      accessToken,
+      password,
+      confirmPass,
+    };
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}/admin/admin-signup`,
+        formData,
+        { headers: { "Content-Type": "Application/json" } }
+      );
+
+      const { message } = response.data;
+      if (response.status === 200) {
+        setError({});
+        setSuccessMsg(message);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      }
+    } catch (err) {
+      if (err.response && err.response.data.errors) {
+        setError(err.response.data.errors);
+      } else {
+        setSuccessMsg("Signup failed!");
+      }
+    }
+  }
+
   return (
     <>
       <div className=" flex">
-        <div className="h-[490px] w-[400px] shadow-[0px_5px_25px_rgba(0,0,0,0.1)] bg-white rounded-tl-lg rounded-bl-lg ">
+        <div className="h-[490px] w-[400px] shadow-[0px_5px_25px_rgba(0,0,0,0.1)] bg-white rounded-lg ">
           <div className="px-8 mt-10">
             <h2 className="text-2xl font-medium">Sign up</h2>
             <p className="mb-3 text-sm text-gray">
-              Requires special permission!
+              Required special permission!
             </p>
           </div>
-          <form className="px-8">
+          <form onSubmit={onSubmitHandler} className="px-8">
             <div className="flex gap-2">
               <FormInputHandler
-                state=""
-                setState=""
+                state={firstName}
+                setState={setFirstName}
                 type="text"
                 name="firstName"
                 placeholder="First Name"
               />
 
+              <p
+                className={`${
+                  error.firstName
+                    ? "block text-xs text-red bg-rose-100 p-1"
+                    : "hidden"
+                }`}
+              >
+                {`${error.firstName ? error.firstName.msg : ""}`}
+              </p>
+
               <FormInputHandler
-                state=""
-                setState=""
+                state={lastName}
+                setState={setLastName}
                 type="text"
                 name="lasttName"
                 placeholder="Last Name"
@@ -41,12 +99,22 @@ function AdminSignupForm() {
             </div>
 
             <FormInputHandler
-              state=""
-              setState=""
+              state={email}
+              setState={setEmail}
               type="email"
-              name="diuEmail"
+              name="email"
               placeholder="DIU Email"
             />
+
+            <p
+              className={`${
+                error.email
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.email ? error.email.msg : ""}`}
+            </p>
 
             <div className=" relative">
               <div
@@ -61,29 +129,59 @@ function AdminSignupForm() {
                 className=" text-secondary absolute top-[50%] right-3 translate-y-[-50%]"
               />
               <FormInputHandler
-                state=""
-                setState=""
+                state={accessToken}
+                setState={setAccessToken}
                 type="text"
                 name="accessToken"
                 placeholder="Access Token"
               />
             </div>
 
+            <p
+              className={`${
+                error.accessToken
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.accessToken ? error.accessToken.msg : ""}`}
+            </p>
+
             <FormInputHandler
-              state=""
-              setState=""
+              state={password}
+              setState={setPassword}
               type="password"
               name="password"
               placeholder="Password"
             />
 
+            <p
+              className={`${
+                error.password
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.password ? error.password.msg : ""}`}
+            </p>
+
             <FormInputHandler
-              state=""
-              setState=""
+              state={confirmPass}
+              setState={setConfirmPass}
               type="password"
               name="confirmPass"
               placeholder="Confirm Password"
             />
+
+            <p
+              className={`${
+                error.confirmPass
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.confirmPass ? error.confirmPass.msg : ""}`}
+            </p>
 
             <LoginSignupFormBtn
               type="submit"
