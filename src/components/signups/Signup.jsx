@@ -40,7 +40,7 @@ function Signup() {
           />
         </div>
         {selectRole === "admin" ? (
-          <AdminSignupForm />
+          <AdminSignupForm setSuccessMsg={setSuccessMsg} />
         ) : (
           <SignupForm setSuccessMsg={setSuccessMsg} />
         )}

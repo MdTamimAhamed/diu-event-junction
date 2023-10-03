@@ -67,6 +67,16 @@ function SignupForm({ setSuccessMsg }) {
               placeholder="First Name"
             />
 
+            <p
+              className={`${
+                error.firstName
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.firstName ? error.firstName.msg : ""}`}
+            </p>
+
             <FormInputHandler
               state={lastName}
               setState={setLastName}
