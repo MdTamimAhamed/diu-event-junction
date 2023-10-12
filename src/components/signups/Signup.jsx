@@ -7,6 +7,7 @@ import AdminSignupForm from "../forms/AdminSignupForm";
 function Signup() {
   const [selectRole, setSelectRole] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [faildMsg, setFaildMsg] = useState("");
 
   return (
     <>
@@ -16,10 +17,14 @@ function Signup() {
       <div className="h-[90vh] flex flex-col justify-center items-center">
         <p
           className={`${
-            successMsg ? "block" : "hidden"
-          } w-[300px] p-1 mb-5 bg-green-200 text-green-800 text-center transition-all ease-linear`}
+            successMsg
+              ? "block bg-green-200 text-green-800 "
+              : faildMsg
+              ? "block bg-rose-200 text-rose-800"
+              : "hidden"
+          } w-[300px] p-1 mb-5 text-center transition-all ease-linear`}
         >
-          {successMsg}
+          {successMsg ? successMsg : faildMsg}
         </p>
 
         <div className=" w-[300px] bg-white shadow-[0px_0px_5px_rgba(0,0,0,0.1)] flex justify-between items-center gap-2 mb-6 p-[5px] rounded-md">
@@ -40,9 +45,12 @@ function Signup() {
           />
         </div>
         {selectRole === "admin" ? (
-          <AdminSignupForm setSuccessMsg={setSuccessMsg} />
+          <AdminSignupForm
+            setSuccessMsg={setSuccessMsg}
+            setFaildMsg={setFaildMsg}
+          />
         ) : (
-          <SignupForm setSuccessMsg={setSuccessMsg} />
+          <SignupForm setSuccessMsg={setSuccessMsg} setFaildMsg={setFaildMsg} />
         )}
       </div>
 

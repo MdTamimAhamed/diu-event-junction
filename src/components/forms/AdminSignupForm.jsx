@@ -1,14 +1,15 @@
 import React from "react";
 import LoginSignupFormBtn from "../../Utilities/buttons/LoginSignupFormBtn";
 import FormInputHandler from "../formInputHandler/FormInputHandler";
+import axios from "axios";
+import ToolTip from "../tooltip/ToolTip";
+
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import ToolTip from "../tooltip/ToolTip";
 import { useState } from "react";
-import axios from "axios";
 import { baseUrl } from "../../Utilities/base/baseURL";
 
-function AdminSignupForm({ setSuccessMsg }) {
+function AdminSignupForm({ setSuccessMsg, setFaildMsg }) {
   const [toolTip, setToolTip] = useState(false);
   const handleToolTip = () => {
     setToolTip(!toolTip);
@@ -17,7 +18,7 @@ function AdminSignupForm({ setSuccessMsg }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [accessToken, setAccessToken] = useState("");
+  const [accessKey, setAccessKey] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
@@ -30,31 +31,29 @@ function AdminSignupForm({ setSuccessMsg }) {
       firstName,
       lastName,
       email,
-      accessToken,
+      accessKey,
       password,
       confirmPass,
     };
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/admin/admin-signup`,
-        formData,
-        { headers: { "Content-Type": "Application/json" } }
-      );
+      const response = await axios.post(`${baseUrl}/admin/signup`, formData, {
+        headers: { "Content-Type": "Application/json" },
+      });
 
       const { message } = response.data;
       if (response.status === 200) {
         setError({});
         setSuccessMsg(message);
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/login";
         }, 2000);
       }
     } catch (err) {
       if (err.response && err.response.data.errors) {
         setError(err.response.data.errors);
       } else {
-        setSuccessMsg("Signup failed!");
+        setFaildMsg("Signup failed!");
       }
     }
   }
@@ -62,7 +61,7 @@ function AdminSignupForm({ setSuccessMsg }) {
   return (
     <>
       <div className=" flex">
-        <div className="h-[490px] w-[400px] shadow-[0px_5px_25px_rgba(0,0,0,0.1)] bg-white rounded-lg ">
+        <div className="h-auto w-[400px] shadow-[0px_5px_25px_rgba(0,0,0,0.1)] bg-white rounded-lg ">
           <div className="px-8 mt-10">
             <h2 className="text-2xl font-medium">Sign up</h2>
             <p className="mb-3 text-sm text-gray">
@@ -78,17 +77,6 @@ function AdminSignupForm({ setSuccessMsg }) {
                 name="firstName"
                 placeholder="First Name"
               />
-
-              <p
-                className={`${
-                  error.firstName
-                    ? "block text-xs text-red bg-rose-100 p-1"
-                    : "hidden"
-                }`}
-              >
-                {`${error.firstName ? error.firstName.msg : ""}`}
-              </p>
-
               <FormInputHandler
                 state={lastName}
                 setState={setLastName}
@@ -97,6 +85,15 @@ function AdminSignupForm({ setSuccessMsg }) {
                 placeholder="Last Name"
               />
             </div>
+            <p
+              className={`${
+                error.firstName
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {`${error.firstName ? error.firstName.msg : ""}`}
+            </p>
 
             <FormInputHandler
               state={email}
@@ -129,8 +126,8 @@ function AdminSignupForm({ setSuccessMsg }) {
                 className=" text-secondary absolute top-[50%] right-3 translate-y-[-50%]"
               />
               <FormInputHandler
-                state={accessToken}
-                setState={setAccessToken}
+                state={accessKey}
+                setState={setAccessKey}
                 type="text"
                 name="accessToken"
                 placeholder="Access Token"
@@ -139,12 +136,12 @@ function AdminSignupForm({ setSuccessMsg }) {
 
             <p
               className={`${
-                error.accessToken
+                error.accessKey
                   ? "block text-xs text-red bg-rose-100 p-1"
                   : "hidden"
               }`}
             >
-              {`${error.accessToken ? error.accessToken.msg : ""}`}
+              {`${error.accessKey ? error.accessKey.msg : ""}`}
             </p>
 
             <FormInputHandler

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../Utilities/base/baseURL";
 
-function SignupForm({ setSuccessMsg }) {
+function SignupForm({ setSuccessMsg, setFaildMsg }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,14 +36,14 @@ function SignupForm({ setSuccessMsg }) {
         setError({});
         setSuccessMsg(message);
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/login";
         }, 2000);
       }
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setError(error.response.data.errors);
       } else {
-        setSuccessMsg("Signup failed!");
+        setFaildMsg("Signup failed!");
       }
     }
   }
