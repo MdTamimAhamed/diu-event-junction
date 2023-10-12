@@ -3,8 +3,49 @@ import LoginSignupFormBtn from "../../Utilities/buttons/LoginSignupFormBtn";
 import FormInputHandler from "../formInputHandler/FormInputHandler";
 import Welcom from "./Welcom";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../../Utilities/base/baseURL";
 
-function LoginForm() {
+function LoginForm({ setSuccessMsg, setFailedMsg }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState({});
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const formData = {
+      email,
+      password,
+    };
+
+    try {
+      const response = await axios.post(`${baseUrl}/user/login`, formData, {
+        headers: { "Content-Type": "Application/json" },
+      });
+
+      const { message, token } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        setSuccessMsg(message);
+        setError({});
+        setFailedMsg("");
+        setTimeout(() => {
+          window.location.href = "/home";
+        }, 2000);
+      }
+    } catch (error) {
+      if (error.response) {
+        setFailedMsg(error.response.data.message);
+      }
+      if (error.response.data.errors) {
+        setError(error.response.data.errors);
+      }
+    }
+  }
+
   return (
     <>
       <div className="flex">
@@ -13,18 +54,28 @@ function LoginForm() {
             <h2 className="text-2xl font-medium">Login</h2>
             <p className="mb-3 text-sm text-gray">Please login to continue.</p>
           </div>
-          <form className="px-8">
+          <form onSubmit={handleSubmit} className="px-8">
             <FormInputHandler
-              state=""
-              setState=""
+              state={email}
+              setState={setEmail}
               type="email"
               name="diuEmail"
               placeholder="Enter email"
             />
 
+            <p
+              className={`${
+                error.email
+                  ? "block text-xs text-red bg-rose-100 p-1"
+                  : "hidden"
+              }`}
+            >
+              {error.email ? error.email.msg : ""}
+            </p>
+
             <FormInputHandler
-              state=""
-              setState=""
+              state={password}
+              setState={setPassword}
               type="password"
               name="password"
               placeholder="Password"
