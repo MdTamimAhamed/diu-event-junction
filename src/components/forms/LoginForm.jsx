@@ -64,12 +64,9 @@ function LoginForm({ setSuccessMsg, setFailedMsg }) {
             />
 
             <p
-              className={`${
-                error.email
+              className={`${error.email
                   ? "block text-xs text-red bg-rose-100 p-1"
-                  : "hidden"
-              }`}
-            >
+                  : "hidden"}`}>
               {error.email ? error.email.msg : ""}
             </p>
 

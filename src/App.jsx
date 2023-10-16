@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Signup from "./components/signups/Signup";
 import SignupForm from "./components/forms/SignupForm";
@@ -11,27 +11,37 @@ import AdminLoginForm from "./components/forms/AdminLoginForm";
 
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
-import AdminDashboard from "./components/admin-dashboard/AdminDashboard";
+import LayoutAdminDashboard from "./components/admin-dashboard/LayoutAdminDashboard";
+import AdminProfile from "./profile/AdminProfile";
+import Dashboard from "./components/admin-dashboard/Dashboard";
+import CreateEventForm from "./components/event-forms/CreateEventForm";
+import Logout from "./logout/Logout";
 
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/user-login" element={<LoginForm />} />
-          <Route path="/admin-login" element={<AdminLoginForm />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/user-signup" element={<SignupForm />} />
-          <Route path="/admin-signup" element={<AdminSignupForm />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user-login" element={<LoginForm />} />
+        <Route path="/admin-login" element={<AdminLoginForm />} />
 
-          <Route path="/footer" element={<Footer />} />
-          <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/user-signup" element={<SignupForm />} />
+        <Route path="/admin-signup" element={<AdminSignupForm />} />
 
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        </Routes>
-      </Router>
+        <Route path="/footer" element={<Footer />} />
+        <Route path="/home" element={<Home />} />
+
+        <Route element={<LayoutAdminDashboard />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="admin-profile" element={<AdminProfile />}>
+            <Route path="create-event" element={<CreateEventForm />} />
+          </Route>
+        </Route>
+        <Route index path="/logout" element={<Logout />} />
+      </Routes>
     </>
   );
 }
