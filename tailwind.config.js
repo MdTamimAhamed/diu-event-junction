@@ -21,6 +21,7 @@ export default {
         'deep-gray':'#4F4F4F',
         'gray':'#5F5F5F',
         'red':'#FF6363',
+        'redHover':'#e04c4c',
       },
 
       //font-family          
