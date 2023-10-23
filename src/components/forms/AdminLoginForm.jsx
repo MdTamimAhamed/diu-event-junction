@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FormInputHandler from "../formInputHandler/FormInputHandler";
 import LoginSignupFormBtn from "../../Utilities/buttons/LoginSignupFormBtn";
-import { Link, useNavigate} from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import { baseUrl } from "../../Utilities/base/baseURL";
 import axios from "axios";
 
@@ -11,6 +11,7 @@ function AdminLoginForm({ setSuccessMsg, setFailedMsg }) {
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,17 +25,21 @@ function AdminLoginForm({ setSuccessMsg, setFailedMsg }) {
         headers: { "Content-Type": "Application/json" },
       });
 
-      const { message, token } = response.data;
-      console.log(response.data);
+      const { message, adminDetails, token } = response.data;
+
       if (token) {
         localStorage.setItem("admin-token", token);
+        localStorage.setItem("admin-details", JSON.stringify(adminDetails))
+
+        console.log(adminDetails)
+
 
         setSuccessMsg(message);
         setError({});
         setFailedMsg("");
 
         setTimeout(() => {
-          navigate("/dashboard");
+          window.location.href = "dashboard"
         }, 2000);
       }
     } catch (error) {

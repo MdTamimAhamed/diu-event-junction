@@ -28,7 +28,7 @@ function SideBar() {
     { id: 4, title: "Favorite", path: "#", icon: <MdFavorite /> },
     { id: 5, title: "Clubs", path: "#", icon: <MdGroups2 /> },
     { id: 6, title: "Gallery", path: "#", icon: <MdImage /> },
-    { id: 7, title: "Settings", icon: <MdSettings /> },
+    { id: 7, title: "Settings",path: "#", icon: <MdSettings /> },
     { id: 8, title: "Logout", path: "logout", icon: <BiLogOut /> },
   ];
 
@@ -36,13 +36,15 @@ function SideBar() {
   const navigate = useNavigate();
 
 
-  function handleActiveBtn(path) {
-    navigate(path);
+  function handleActiveBtn(path){
+      navigate(path);
+    
   }
+
 
   return (
     <>
-      <div className=" w-[200px] h-[80vh] shadow-[0px_3px_5px_rgba(0,0,0,0.1)] bg-white pt-3">
+      <div className=" w-[200px] h-[95vh] shadow-[0px_3px_5px_rgba(0,0,0,0.1)] bg-white pt-6">
         <ul>
 
           {navTitles.map((item) => (
@@ -52,7 +54,7 @@ function SideBar() {
                   ${location.pathname.includes(item.path)? "bg-black text-white": ""}`}>
 
                 {item.icon}
-                  <span className="pl-1 cursor-pointer" onClick={() => handleActiveBtn(item.path)}>
+                  <span className="pl-1 cursor-pointer" onClick={()=> handleActiveBtn(item.path)}>
                       {item.title}
                   </span>
               </span>
@@ -66,3 +68,4 @@ function SideBar() {
 }
 
 export default SideBar;
+
