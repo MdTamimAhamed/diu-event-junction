@@ -1,13 +1,15 @@
+
 import React from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import InputHandlerSm from "../formInputHandler/InputHandlerSm"
+import InputHandlerSm from "../../components/formInputHandler/InputHandlerSm"
 import { MdKeyboardBackspace } from "react-icons/md"
 import { useState, useEffect } from "react";
 import { MdAddBox,MdDeleteForever,MdOutlineAddBox, MdOutlineFileUpload } from "react-icons/md"
-import { baseUrl } from "../../Utilities/base/baseURL";
+import { baseUrl } from "../../Utilities/base/baseURL.js";
+import { useParams } from "react-router-dom";
 
-function CreateEventForm() {
+function EditEvent() {
 
   const [title, setTitle] = useState('')
   const [file, setFile] = useState(null)
@@ -31,17 +33,54 @@ function CreateEventForm() {
   const dates = [eventStartDate, eventEndDate]
   const times = [eventStartTime, eventEndTime]
 
-  const adminToken = localStorage.getItem("admin-token");
+  const { eventId } = useParams();
+
+  //fatching previous data
+  const [eventData, setEventData] = useState(null);
+
   useEffect(() => {
-    if (adminToken) {
-      const loggedAdmin = jwtDecode(adminToken);
-      console.log( "Id",loggedAdmin._id)
-      setAuthorId(loggedAdmin._id);
+    const fetchEventData = async () => {
+      try {
+        if (eventId) {
+          const response = await axios.get(`${baseUrl}/admin/get-event?eventId=${eventId}`);
+          setEventData(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, []);
+
+    fetchEventData();
+  }, [eventId]);
+
+  useEffect(() => {
+    if (eventData) {
+      setTitle(eventData.eventTitle);
+      setFile(eventData.eventThumbnail);
+      setEventType(eventData.eventType);
+      setShowSwagItem(eventData.swagItems);
+      setEventStartDate(eventData.dates[0]);
+      setEventEndDate(eventData.dates[1]);
+      setEventStartTime(eventData.times[0]);
+      setEventEndTime(eventData.times[1]);
+      setVenue(eventData.venue);
+      setShowSpeaker(eventData.speaker);
+
+    //   eventTitle: title,
+    //   eventThumbnail: req.file.filename,
+    //   eventType: eventType,
+    //   swagItems: splitedSwagItems,
+    //   dates: splitedDates,
+    //   times: eventTimes,
+    //   venue: venue,
+    //   speaker: speaker,
+    //   author: authorId,
+    }
+  }, [eventData]);
+
   
 
-  async function handleUpload(e){
+  async function handleUpdate(e){
     e.preventDefault()
 
     const formData = new FormData();
@@ -59,15 +98,15 @@ function CreateEventForm() {
     
 
     try{
-      const response = await axios.post(`${baseUrl}/admin/add-event`,
-                       formData, { headers:{"Content-Type":"multipart/form-data"}});
+    //   const response = await axios.put(`${baseUrl}/admin/add-event`,
+    //                    formData, { headers:{"Content-Type":"multipart/form-data"}});
                 
       setTitle('')
       setFile(null)
       setEventType('')
       setShowSwagItem([])
       setVenue('')
-      setSpeaker('')
+      setShowSpeaker([])
       setEventDetails('')
       setOrganizerDetails('')
 
@@ -77,7 +116,7 @@ function CreateEventForm() {
   }
 
   function handleRoute() {
-    window.location.href = "";
+    window.location.href = "/dashboard";
   }
 
   function handleAddItem(){
@@ -106,16 +145,17 @@ function CreateEventForm() {
 
   return (
     <>
-      <form onSubmit={handleUpload}
+
+    {eventData? (
+      <form onSubmit={handleUpdate}
         className="max-w-[900px] bg-white mt-5 px-8 py-8  shadow-md mb-20">
         <div className="flex items-start gap-6">
           <button onClick={handleRoute}><MdKeyboardBackspace className=" text-[1.4em]"/></button>
           <div>
-            <div className="text-xl font-medium">Add New Event</div>
+            <div className="text-xl font-medium">Edit Event</div>
             <p className="text-sm text-gray">Fill up this form to post your event.</p>
           </div>
         </div>
-
 
         <div className="px-[46px]">
           <div className="mt-8">
@@ -143,6 +183,7 @@ function CreateEventForm() {
                 />
                 <button className=" absolute left-0 top-0 flex justify-center items-center text-md text-white rounded-md w-full h-full bg-black " type="button"><MdOutlineFileUpload className="text-xl mr-2"/> Upload</button>
               </div>
+              <p>{file}</p>
             </div>
           </div>
 
@@ -275,11 +316,11 @@ function CreateEventForm() {
               <p className="mr-2">Keynote speaker/ Guest <span className="text-red">*</span></p>
               <div className="w-full">
                 <div className="flex justify-start items-center">
-                  <input
+                  <InputHandlerSm
                     className=" w-[60%] border-[1px] border-light-gray py-1 px-4 rounded-md outline-light-gray"
                     type="text"
-                    value={speaker}
-                    onChange={(e)=> setSpeaker(e.target.value)}
+                    state={speaker}
+                    setState={setSpeaker}
                     placeholder="Enter speaker/guest name"
                   />
                   <button type="button" onClick={handleAddSpeaker} className="flex items-center flex-nowrap py-[5px] px-2 ml-2 rounded-md text-white bg-black" >
@@ -325,9 +366,11 @@ function CreateEventForm() {
           <button type="submit" className=" text-white px-8 bg-black  py-2 rounded-md ml-10 mb-10">Post Event</button>
         </div>
 
-      </form>
+      </form>): (
+        <p>Loading...</p>
+      )}
     </>
   );
 }
 
-export default CreateEventForm;
+export default EditEvent;

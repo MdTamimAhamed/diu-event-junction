@@ -1,11 +1,29 @@
-import React from 'react'
-import { useNavigate, Outlet, Navigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
-function ProtectedRoutes({children}) {
-    const isAuthenticated = localStorage.getItem('admin-token')
-    const navigate = useNavigate();
-    
-  return isAuthenticated? children : <Navigate to="/" replace/>
+function ProtectedRoute({ element, userRole, ...rest }) {
+  const adminToken = localStorage.getItem("admin-token");
+  const userToken = localStorage.getItem("user-token");
+
+  if (adminToken) {
+    const admin = jwtDecode(adminToken);
+    if (admin.role === userRole) {
+      return element;
+    }
+    return <Navigate to="/login" />;
+  } 
+
+  if (userToken) {
+    const user = jwtDecode(userToken);
+    if(user.role === userRole){
+      return element;
+    }
+    return <Navigate to="/login" />;
+  } 
+
+  
+  return <Navigate to="/login" />;
 }
 
-export default ProtectedRoutes
+export default ProtectedRoute;

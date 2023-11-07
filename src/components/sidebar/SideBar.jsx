@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { BiSolidDashboard, BiLogOut } from "react-icons/bi";
 import {
   MdAccountCircle,
@@ -15,7 +15,7 @@ function SideBar() {
     {
       id: 1,
       title: "Dashboard",
-      path: "dashboard",
+      path: "",
       icon: <BiSolidDashboard />,
     },
     {
@@ -31,15 +31,16 @@ function SideBar() {
     { id: 7, title: "Settings",path: "#", icon: <MdSettings /> },
     { id: 8, title: "Logout", path: "logout", icon: <BiLogOut /> },
   ];
-
   const location = useLocation();
   const navigate = useNavigate();
+  const [btnActive, setButtonActive] = useState(false);
 
-
-  function handleActiveBtn(path){
+  function handleActiveBtn(path, active){
+      setButtonActive(active);
       navigate(path);
-    
   }
+
+
 
 
   return (
@@ -50,11 +51,12 @@ function SideBar() {
           {navTitles.map((item) => (
             <li key={item.id} className={`px-4 py-2`}>
               <span className={`flex items-center pl-7 py-2 rounded-md hover:bg-[rgba(0,0,0,0.1)] hover:text-black 
-                  ${item.id === 8 ? " text-red hover:bg-red hover:text-white" : ""}
-                  ${location.pathname.includes(item.path)? "bg-black text-white": ""}`}>
+                  ${item.id === 8 ? " text-red hover:bg-red hover:text-white" : ""} 
+                  ${( location.pathname.includes(item.path) && item.path !== ""? 'bg-black text-white':'')}
+                  ${(item.path === "") && btnActive? 'bg-white text-black' : ''}`}>
 
                 {item.icon}
-                  <span className="pl-1 cursor-pointer" onClick={()=> handleActiveBtn(item.path)}>
+                  <span className="pl-1 cursor-pointer" onClick={()=> handleActiveBtn(item.path, true)}>
                       {item.title}
                   </span>
               </span>

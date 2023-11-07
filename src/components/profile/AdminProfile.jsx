@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {MdAddCircle} from 'react-icons/md'
+import jwtDecode from "jwt-decode";
 
 function AdminProfile() {
-  const userDetails = JSON.parse(localStorage.getItem('admin-details'))
+  const token = localStorage.getItem('admin-token')
+    const userDetails = jwtDecode(token)
     const userName = userDetails.firstName
     const userNameFirstLetter = userName.charAt(0)
 
