@@ -1,8 +1,10 @@
 import React from 'react'
 import {MdNotifications} from 'react-icons/md'
+import jwtDecode from 'jwt-decode'
 
 function DashHeader() {
-    const userDetails = JSON.parse(localStorage.getItem('admin-details'))
+    const token = localStorage.getItem('admin-token')
+    const userDetails = jwtDecode(token)
 
     const userName = userDetails.firstName
     const userNameFirstLetter = userName.charAt(0)

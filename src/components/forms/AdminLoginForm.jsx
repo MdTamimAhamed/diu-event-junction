@@ -25,14 +25,10 @@ function AdminLoginForm({ setSuccessMsg, setFailedMsg }) {
         headers: { "Content-Type": "Application/json" },
       });
 
-      const { message, adminDetails, token } = response.data;
+      const { message, token } = response.data;
 
       if (token) {
         localStorage.setItem("admin-token", token);
-        localStorage.setItem("admin-details", JSON.stringify(adminDetails))
-
-        console.log(adminDetails)
-
 
         setSuccessMsg(message);
         setError({});
