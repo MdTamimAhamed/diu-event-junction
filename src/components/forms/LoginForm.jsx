@@ -27,11 +27,14 @@ function LoginForm({ setSuccessMsg, setFailedMsg }) {
       });
 
       const { message, token } = response.data;
+      
       if (token) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("user-token", token); 
+
         setSuccessMsg(message);
         setError({});
         setFailedMsg("");
+
         setTimeout(() => {
           window.location.href = "/home";
         }, 2000);

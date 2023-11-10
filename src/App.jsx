@@ -1,46 +1,46 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Signup from "./components/signups/Signup";
-import SignupForm from "./components/forms/SignupForm";
-import AdminSignupForm from "./components/forms/AdminSignupForm";
-
 import Login from "./components/logins/Login";
-import LoginForm from "./components/forms/LoginForm";
-import AdminLoginForm from "./components/forms/AdminLoginForm";
-
-import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
+import HomeLayout from "./components/home/HomeLayout";
+
 import LayoutAdminDashboard from "./components/admin-dashboard/LayoutAdminDashboard";
-import AdminProfile from "./profile/AdminProfile";
+import AdminProfile from "./components/profile/AdminProfile";
 import Dashboard from "./components/admin-dashboard/Dashboard";
 import CreateEventForm from "./components/event-forms/CreateEventForm";
-import Logout from "./logout/Logout";
+import Logout from "./components/logout/Logout";
+
+import EventEdit from "./components/event-pages/EventEdit";
+import PreviewEvent from "./components/event-pages/PreviewEvent";
+
+import ProtectedRoute from "./components/protected-route/ProtectedRoutes";
 
 function App() {
   return (
     <>
       <Routes>
+        {/* Public routes */}
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login />} />
-        <Route path="/user-login" element={<LoginForm />} />
-        <Route path="/admin-login" element={<AdminLoginForm />} />
-
         <Route path="/signup" element={<Signup />} />
-        <Route path="/user-signup" element={<SignupForm />} />
-        <Route path="/admin-signup" element={<AdminSignupForm />} />
 
-        <Route path="/footer" element={<Footer />} />
-        <Route path="/home" element={<Home />} />
-
-        <Route element={<LayoutAdminDashboard />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+        {/* Admin Private routes */}
+        <Route path="/dashboard" element={<ProtectedRoute element={<LayoutAdminDashboard/>} userRole = 'Admin'/>}>
+          <Route index element={<Dashboard />} />
+          <Route path="preview-event/:id" element={<PreviewEvent />} />
+          <Route path="event-edit/:id" element={<EventEdit />}/>
           <Route path="admin-profile" element={<AdminProfile />}>
             <Route path="create-event" element={<CreateEventForm />} />
           </Route>
+          <Route index path="logout" element={<Logout />} />
         </Route>
-        <Route index path="/logout" element={<Logout />} />
+
+        {/* User Private routes */}
+        <Route path="/home" element={<ProtectedRoute element={<HomeLayout/>} userRole='Client'/>}>
+          
+        </Route>
       </Routes>
     </>
   );
