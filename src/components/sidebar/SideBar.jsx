@@ -7,7 +7,11 @@ import {
   MdGroups2,
   MdImage,
   MdSettings,
+  
 } from "react-icons/md";
+
+import {FaSearch} from "react-icons/fa";
+
 import { useNavigate, useLocation } from "react-router-dom";
 
 function SideBar() {
