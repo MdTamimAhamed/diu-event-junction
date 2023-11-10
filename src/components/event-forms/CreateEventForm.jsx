@@ -10,7 +10,8 @@ import { baseUrl } from "../../Utilities/base/baseURL";
 function CreateEventForm() {
 
   const [title, setTitle] = useState('')
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState({})
+  console.log(file)
   const [eventType, setEventType] = useState('')
   const [swag, setSwag] = useState('')
   const [showSwagItem, setShowSwagItem] = useState([])
@@ -35,7 +36,6 @@ function CreateEventForm() {
   useEffect(() => {
     if (adminToken) {
       const loggedAdmin = jwtDecode(adminToken);
-      console.log( "Id",loggedAdmin._id)
       setAuthorId(loggedAdmin._id);
     }
   }, []);
@@ -63,7 +63,7 @@ function CreateEventForm() {
                        formData, { headers:{"Content-Type":"multipart/form-data"}});
                 
       setTitle('')
-      setFile(null)
+      setFile({})
       setEventType('')
       setShowSwagItem([])
       setVenue('')
@@ -77,7 +77,7 @@ function CreateEventForm() {
   }
 
   function handleRoute() {
-    window.location.href = "";
+    window.location.href = "/dashboard";
   }
 
   function handleAddItem(){
@@ -110,7 +110,7 @@ function CreateEventForm() {
         className="max-w-[900px] bg-white mt-5 px-8 py-8  shadow-md mb-20">
         <div className="flex items-start gap-6">
           <button onClick={handleRoute}><MdKeyboardBackspace className=" text-[1.4em]"/></button>
-          <div>
+          <div className="">
             <div className="text-xl font-medium">Add New Event</div>
             <p className="text-sm text-gray">Fill up this form to post your event.</p>
           </div>
@@ -143,6 +143,18 @@ function CreateEventForm() {
                 />
                 <button className=" absolute left-0 top-0 flex justify-center items-center text-md text-white rounded-md w-full h-full bg-black " type="button"><MdOutlineFileUpload className="text-xl mr-2"/> Upload</button>
               </div>
+              {file && file.name? (
+                <div className="flex items-center">
+                  <p>{file.name}</p>
+                  <button
+                    className="ml-2 text-red-700"
+                    type="button"
+                    onClick={() => setFile(null)}
+                  >
+                    <MdDeleteForever className="text-red text-lg" />
+                  </button>
+                </div>
+              ):''}
             </div>
           </div>
 

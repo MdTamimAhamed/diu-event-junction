@@ -12,7 +12,8 @@ import Dashboard from "./components/admin-dashboard/Dashboard";
 import CreateEventForm from "./components/event-forms/CreateEventForm";
 import Logout from "./components/logout/Logout";
 
-import EditEvent from "./pages/EditPages/EditEvent";
+import EventEdit from "./components/event-pages/EventEdit";
+import PreviewEvent from "./components/event-pages/PreviewEvent";
 
 import ProtectedRoute from "./components/protected-route/ProtectedRoutes";
 
@@ -28,7 +29,8 @@ function App() {
         {/* Admin Private routes */}
         <Route path="/dashboard" element={<ProtectedRoute element={<LayoutAdminDashboard/>} userRole = 'Admin'/>}>
           <Route index element={<Dashboard />} />
-          <Route path="edit/:eventId" element={<EditEvent />} />
+          <Route path="preview-event/:id" element={<PreviewEvent />} />
+          <Route path="event-edit/:id" element={<EventEdit />}/>
           <Route path="admin-profile" element={<AdminProfile />}>
             <Route path="create-event" element={<CreateEventForm />} />
           </Route>
