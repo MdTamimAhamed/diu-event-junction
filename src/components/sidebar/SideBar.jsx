@@ -9,14 +9,13 @@ import {
   MdSettings,
   
 } from "react-icons/md";
-<<<<<<< HEAD
+
 
 import {FaSearch} from "react-icons/fa";
 
 import { useNavigate, useLocation } from "react-router-dom";
-=======
-import { Link, useLocation } from "react-router-dom";
->>>>>>> a535f3e55e5a4b138efa0e110f63225cf62475df
+
+
 
 function SideBar() {
   const navTitles = [
