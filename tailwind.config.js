@@ -22,6 +22,7 @@ export default {
         'gray':'#5F5F5F',
         'red':'#FF6363',
         'redHover':'#e04c4c',
+        
       },
 
       //font-family          
@@ -30,7 +31,17 @@ export default {
         'roboto' : ['Roboto', 'sans-serif'],
         'lato' : ['Lato', 'sans-serif'],
         'comforter':['Comforter Brush','cursive'],
+      },
+
+      //underline-custom
+      textUnderlineOffset: {
+        5: '5px',
+      },
+      //footer-custom
+      height: {
+        '128': '40rem',
       }
+      
     },
   },
   plugins: [],

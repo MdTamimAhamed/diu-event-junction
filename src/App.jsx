@@ -5,6 +5,9 @@ import Signup from "./components/signups/Signup";
 import Login from "./components/logins/Login";
 import Home from "./components/home/Home";
 import HomeLayout from "./components/home/HomeLayout";
+import Footer from "./components/footer/Footer";
+import About from "./components/pages/About";
+import Contact from "./components/pages/Contact";
 
 import LayoutAdminDashboard from "./components/admin-dashboard/LayoutAdminDashboard";
 import AdminProfile from "./components/profile/AdminProfile";
@@ -22,9 +25,13 @@ function App() {
     <>
       <Routes>
         {/* Public routes */}
+        
+         
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Admin Private routes */}
         <Route path="/dashboard" element={<ProtectedRoute element={<LayoutAdminDashboard/>} userRole = 'Admin'/>}>
@@ -41,6 +48,7 @@ function App() {
         <Route path="/home" element={<ProtectedRoute element={<HomeLayout/>} userRole='Client'/>}>
           
         </Route>
+        
       </Routes>
     </>
   );
