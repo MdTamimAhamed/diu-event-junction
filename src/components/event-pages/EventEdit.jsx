@@ -21,6 +21,8 @@ function EventEdit() {
     } 
     fatchToUpdateData();
   },[id])
+
+  
   return (
     <>
         {updateEventData?(

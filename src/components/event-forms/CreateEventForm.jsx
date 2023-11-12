@@ -6,12 +6,15 @@ import { MdKeyboardBackspace } from "react-icons/md"
 import { useState, useEffect } from "react";
 import { MdAddBox,MdDeleteForever,MdOutlineAddBox, MdOutlineFileUpload } from "react-icons/md"
 import { baseUrl } from "../../Utilities/base/baseURL";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
 
 function CreateEventForm() {
 
   const [title, setTitle] = useState('')
   const [file, setFile] = useState({})
-  console.log(file)
+  const [logoFile, setLogoFile] = useState({})
+
   const [eventType, setEventType] = useState('')
   const [swag, setSwag] = useState('')
   const [showSwagItem, setShowSwagItem] = useState([])
@@ -25,8 +28,10 @@ function CreateEventForm() {
   const [venue, setVenue] = useState('')
   const [speaker, setSpeaker] = useState('')
   const [showSpeaker, setShowSpeaker] = useState([])
-  const [eventDetails, setEventDetails] = useState(null)
-  const [organizerDetails, setOrganizerDetails] = useState(null)
+
+  const [eventDetails, setEventDetails] = useState('')
+  const [organizerDetails, setOrganizerDetails] = useState('')
+
   const [authorId, setAuthorId] = useState('')
 
   const dates = [eventStartDate, eventEndDate]
@@ -47,6 +52,7 @@ function CreateEventForm() {
     const formData = new FormData();
     formData.append('title', title)
     formData.append('thumbnail', file)
+    formData.append('logoFile', logoFile)
     formData.append('eventType', eventType)
     formData.append('swagItems', showSwagItem)
     formData.append('eventDates', dates)
@@ -64,6 +70,7 @@ function CreateEventForm() {
                 
       setTitle('')
       setFile({})
+      setLogoFile({})
       setEventType('')
       setShowSwagItem([])
       setVenue('')
@@ -106,7 +113,7 @@ function CreateEventForm() {
 
   return (
     <>
-      <form onSubmit={handleUpload}
+      <form onSubmit={handleUpload} enctype="multipart/form-data"
         className="max-w-[900px] bg-white mt-5 px-8 py-8  shadow-md mb-20">
         <div className="flex items-start gap-6">
           <button onClick={handleRoute}><MdKeyboardBackspace className=" text-[1.4em]"/></button>
@@ -321,17 +328,61 @@ function CreateEventForm() {
             <p className="text-sm text-light-gray pb-2">Some fields are required!</p>
           </div>
 
+          <div className="mt-8 flex">
+              <p className="mr-2 w-[20%]">Other Details:</p>
+              <ReactQuill 
+                className="w-full placeholder:not-italic" 
+                theme="snow" 
+                placeholder={"Write your event details here..."}
+                value={eventDetails} 
+                onChange={setEventDetails}
+              />
+          </div>
 
-             <div className="mt-8">
-                <p>Organizer's logo <span className="text-gray text-xs">(optional)</span></p>
-                <div className=" relative w-full flex flex-col justify-center items-center p-8 border-[2px] border-dashed border-black bg-[rgba(0,0,0,0.04)] rounded-md">
-                  <div className=" relative   w-[130px] py-[2px]">
-                    <input className=" z-10 relative opacity-0" type="file" accept=".jpg, .png, .jpeg"/>
-                    <button className=" absolute left-0 top-0 flex justify-center items-center  text-md text-white rounded-md w-full h-full bg-black " type="button"><MdOutlineFileUpload className="text-xl mr-2"/> Upload</button>
+          <div className="mt-16 flex">
+              <p className="mr-2 w-[20%]">Organizer's Details:</p>
+              <ReactQuill 
+                className="w-full placeholder:not-italic" 
+                theme="snow" 
+                placeholder={"Write organizer's details here..."}
+                value={organizerDetails} 
+                onChange={setOrganizerDetails}
+              />
+          </div>
+
+
+          <div className="mt-16">
+              <p>Organizer's logo <span className="text-gray text-xs">(optional)</span></p>
+              <div className=" relative w-full flex flex-col justify-center items-center p-8 border-[2px] border-dashed border-black bg-[rgba(0,0,0,0.04)] rounded-md">
+                <div className=" relative   w-[130px] py-[2px]">
+                  <input 
+                    className=" z-10 relative opacity-0" 
+                    type="file" 
+                    accept=".jpg, .png, .jpeg"
+                    onChange={(e)=>setLogoFile(e.target.files[0])}
+                  />
+                  <button 
+                    className=" absolute left-0 top-0 flex justify-center items-center  text-md text-white rounded-md w-full h-full bg-black " type="button">
+                      <MdOutlineFileUpload className="text-xl mr-2"/> 
+                      Upload
+                  </button>
                   </div>
+
+                    {logoFile && logoFile.name? (
+                  <div className="flex items-center">
+                    <p>{logoFile.name}</p>
+                    <button
+                      className="ml-2 text-red-700"
+                      type="button"
+                      onClick={() => setLogoFile(null)}
+                    >
+                      <MdDeleteForever className="text-red text-lg" />
+                    </button>
+                  </div>
+                ):''}
                 </div>
               </div>
-            </div>
+          </div>
 
         <div className="w-full flex justify-start mt-20">
           <button type="submit" className=" text-white px-8 bg-black  py-2 rounded-md ml-10 mb-10">Post Event</button>
