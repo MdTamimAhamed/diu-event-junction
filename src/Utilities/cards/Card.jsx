@@ -61,7 +61,7 @@ async function deleteEvent(){
                 <div key={index} className=' max-h-[400px] bg-white w-[280px] h-auto rounded-lg p-[13px] shadow-md'>
                   <div className='h-[170px] overflow-hidden'>
                     <img 
-                    className=' rounded w-full h-full object-cover'
+                    className=' rounded w-full h-full object-cover hover:scale-110 transition-all ease-linear duration-200'
                     src={`${baseUrl}/uploads/${item.eventThumbnail}`} 
                     alt="event thumbnail" />
                   </div>
