@@ -7,8 +7,15 @@ import {
   MdGroups2,
   MdImage,
   MdSettings,
+  
 } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+
+
+import {FaSearch} from "react-icons/fa";
+
+import { useNavigate, useLocation } from "react-router-dom";
+
+
 
 function SideBar() {
   const navTitles = [
