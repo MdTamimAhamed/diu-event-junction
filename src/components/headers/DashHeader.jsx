@@ -13,7 +13,7 @@ function DashHeader() {
         <div className='w-full border-b-2 border-secondary bg-white '>
             <div className='container flex justify-between px-8 py-5 items-center m-auto'>
                 <div className='flex items-center'>
-                    <h2>DIU Event Junction</h2>
+                    <div className="font-poppins text-black text-lg font-bold">DIU <span className='text-secondary' >Event</span> Junction</div>
                     <button className='ml-16'>Search</button>
                 </div>
                 <div className='flex items-center [&>p]:ml-3'>
