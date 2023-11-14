@@ -76,6 +76,7 @@ function PreviewEvent() {
     const eventStartDate = new Date(`${startDate} ${startTime12Hour}`);
 
     // Function to calculate and display the remaining time
+    let intervalId;
     function updateRemainingTime() {
       const currentTime = new Date();
       const timeRemaining = eventStartDate - currentTime;
@@ -97,12 +98,12 @@ function PreviewEvent() {
     }
     
     useEffect(() => {
-      let intervalId = setInterval(updateRemainingTime, 1000);
+      intervalId = setInterval(updateRemainingTime, 1000);
       return () => clearInterval(intervalId);
     }, [eventStartDate])
     
 
-
+  
 
 
 
@@ -151,6 +152,10 @@ function PreviewEvent() {
                     <p className='mt-2'>No organizer details!</p>
                   )}
                 </div>
+
+                <div>
+                  
+                </div>
               </div>
 
               {/*Right column */}
@@ -194,7 +199,7 @@ function PreviewEvent() {
                         <div className='mt-10'>
                           <p className='font-medium'>Swag Items</p>
                           {previewEventData.swagItems.map((item, index)=>(
-                            <div className='flex items-start'>
+                            <div key={index} className='flex items-start'>
                               <MdCheckBox className='text-lg mr-2 text-secondary w-[10%]'/>
                               <p key={index} className='flex items-start'> {item}</p>
                             </div>
