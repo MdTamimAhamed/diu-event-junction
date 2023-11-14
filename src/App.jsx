@@ -32,6 +32,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        
 
         {/* Admin Private routes */}
         <Route path="/dashboard" element={<ProtectedRoute element={<LayoutAdminDashboard/>} userRole = 'Admin'/>}>
@@ -43,6 +44,7 @@ function App() {
           </Route>
           <Route index path="logout" element={<Logout />} />
         </Route>
+
 
         {/* User Private routes */}
         <Route path="/home" element={<ProtectedRoute element={<HomeLayout/>} userRole='Client'/>}>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { baseUrl } from "../../Utilities/base/baseURL";
 import Card from "../../Utilities/cards/Card";
 import jwtDecode from "jwt-decode";
+import Analytics from "./Analytics";
 
 function Dashboard() {
   const [eventData, setEventData] = useState([]);
@@ -28,6 +29,7 @@ function Dashboard() {
 
   return (
     <>
+      <Analytics/>
       <Card eventData={eventData} />
     </>
   );
