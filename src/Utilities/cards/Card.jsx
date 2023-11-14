@@ -53,7 +53,7 @@ async function deleteEvent(){
   return (
         <>    
           <div>
-            <h1 className='text-md font-bold mb-4'>My Events({eventCount})</h1>
+            <h1 className='text-md font-bold mb-4 mt-20'>My Events({eventCount})</h1>
           </div>
           {eventData ? (
             <div className=' w-full flex flex-wrap flex-row gap-6'>
