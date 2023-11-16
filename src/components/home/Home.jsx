@@ -15,7 +15,7 @@ function Home() {
           This is the page before login! To access anything of the website, you
           have to login.
         </p>
-        <Link to="/login">
+        <Link to="/login" className="mt-20">
           <button className="bg-red px-3 py-1">Login</button>
         </Link>
       </div>

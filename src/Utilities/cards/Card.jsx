@@ -56,7 +56,7 @@ async function deleteEvent(){
             <h1 className='text-md font-bold mb-4 mt-20'>My Events({eventCount})</h1>
           </div>
           {eventData ? (
-            <div className=' w-full flex flex-wrap flex-row gap-6'>
+            <div className=' max-w-7xl flex flex-wrap flex-row gap-6'>
               {eventData.map((item, index)=>(
                 <div key={index} className=' max-h-[400px] bg-white w-[280px] h-auto rounded-lg p-[13px] shadow-md'>
                   <div className='h-[170px] overflow-hidden'>

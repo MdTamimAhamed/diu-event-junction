@@ -33,6 +33,11 @@ export default {
         'comforter':['Comforter Brush','cursive'],
       },
 
+
+      backgroundImage: {
+        'clientHeroImg': "url('/src/images/hero_bg.jpg')",
+      },
+
       //underline-custom
       textUnderlineOffset: {
         5: '5px',
