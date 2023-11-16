@@ -29,8 +29,10 @@ function Dashboard() {
 
   return (
     <>
-      <Analytics/>
-      <Card eventData={eventData} />
+      <div className="mb-20">
+        <Analytics/>
+        <Card eventData={eventData} />
+      </div>
     </>
   );
 }
