@@ -2,7 +2,7 @@ import React from "react";
 import LoginSignupFormBtn from "../../Utilities/buttons/LoginSignupFormBtn";
 import FormInputHandler from "../formInputHandler/FormInputHandler";
 import Welcom from "./Welcom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../../Utilities/base/baseURL";
@@ -12,6 +12,7 @@ function LoginForm({ setSuccessMsg, setFailedMsg }) {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState({});
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,7 +37,7 @@ function LoginForm({ setSuccessMsg, setFailedMsg }) {
         setFailedMsg("");
 
         setTimeout(() => {
-          window.location.href = "/home";
+          navigate("/");
         }, 2000);
       }
     } catch (error) {

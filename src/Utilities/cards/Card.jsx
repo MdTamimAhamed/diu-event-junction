@@ -14,7 +14,7 @@ function Card({eventData}) {
   const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
 
-  let eventCount = eventData.length;
+  let eventCount = eventData? eventData.length : 0;
 
   function handleEdit(updateId) {
     navigate(`/dashboard/event-edit/${updateId}`);
@@ -29,7 +29,7 @@ function Card({eventData}) {
       setActive(null);
     } else {
       setActive(id);
-      setDeleteId(id)
+      setDeleteId(null)
     }
   }
 
@@ -56,7 +56,7 @@ async function deleteEvent(){
             <h1 className='text-md font-bold mb-4 mt-20'>My Events({eventCount})</h1>
           </div>
           {eventData ? (
-            <div className=' w-full flex flex-wrap flex-row gap-6'>
+            <div className=' max-w-7xl flex flex-wrap flex-row gap-6'>
               {eventData.map((item, index)=>(
                 <div key={index} className=' max-h-[400px] bg-white w-[280px] h-auto rounded-lg p-[13px] shadow-md'>
                   <div className='h-[170px] overflow-hidden'>

@@ -6,7 +6,7 @@ function LoginHeader() {
     <>
       <nav className='bg-primary p-6'>
           <div className="container mx-auto flex justify-between items-center">
-            <div className="font-poppins text-white text-lg font-bold">DIU <span className='text-secondary' >Event</span> Junction</div>
+            <div className=" text-white text-lg font-bold">DIU <span className='text-secondary font-bold' >Event</span> Junction</div>
               <div className="space-x-10 flex justify-between items-center text-white " >
 
                   <Link to='/home'><p className='border-b-[2px] border-secondary'>Home</p></Link>

@@ -17,17 +17,29 @@ import Logout from "./components/logout/Logout";
 
 import EventEdit from "./components/event-pages/EventEdit";
 import PreviewEvent from "./components/event-pages/PreviewEvent";
+import ShowEvent from "./components/client-components/ShowEvent";
 
 import ProtectedRoute from "./components/protected-route/ProtectedRoutes";
+import { useState, useEffect } from "react";
+
 
 function App() {
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user-token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
   return (
     <>
       <Routes>
         {/* Public routes */}
         
-         
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
@@ -45,12 +57,10 @@ function App() {
           <Route index path="logout" element={<Logout />} />
         </Route>
 
-
         {/* User Private routes */}
-        <Route path="/home" element={<ProtectedRoute element={<HomeLayout/>} userRole='Client'/>}>
-          
-        </Route>
-        
+        <Route path="/"  element={<ProtectedRoute element={<HomeLayout/>} userRole='Client'/>} /> 
+        <Route path="/show-event/:id" element={<ProtectedRoute element={<ShowEvent/>} userRole='Client'  />}/>
+
       </Routes>
     </>
   );
