@@ -1,17 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HeroSection from '../client-components/HeroSection'
 import HomeHeader from '../headers/HomeHeader'
 import Footer from '../footer/Footer'
 import {FaFacebookSquare,FaGithubSquare} from 'react-icons/fa'
 import {RiInstagramFill} from 'react-icons/ri'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 function About() {
+  const [userLoggedIn, setUserLoggedIn] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user-token");
+
+    if (token) {
+      const userDetails = jwtDecode(token);
+      const userName = userDetails.firstName;
+      const userNameFirstLetter = userName.charAt(0);
+      setUserLoggedIn(userNameFirstLetter);
+    }
+  }, []);
+
   return (
     <>
     <div className=''>
         {/* home header*/}
-        <HomeHeader/>
+        <HomeHeader
+          user={userLoggedIn}
+        />
 
 
         {/* blur background*/}
@@ -20,7 +36,7 @@ function About() {
             pageName='About us'
           />
 
-          <div className='mt-20 max-w-4xl bg-white h-auto mx-auto rounded-md '>
+          <div className='relative -mt-44 max-w-4xl bg-white h-auto mx-auto rounded-md '>
                 <h1 className='text-center font-thin text-4xl pt-8'>Meet the team</h1>
                 <div className='px-20 pb-20 pt-10 h-auto'>
                   <div className='flex flex-wrap justify-center gap-x-14 gap-y-20 [&>div]:w-48 [&>div]:h-48'>

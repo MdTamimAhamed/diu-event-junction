@@ -14,7 +14,7 @@ function Card({eventData}) {
   const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
 
-  let eventCount = eventData.length;
+  let eventCount = eventData? eventData.length : 0;
 
   function handleEdit(updateId) {
     navigate(`/dashboard/event-edit/${updateId}`);
@@ -29,7 +29,7 @@ function Card({eventData}) {
       setActive(null);
     } else {
       setActive(id);
-      setDeleteId(id)
+      setDeleteId(null)
     }
   }
 
