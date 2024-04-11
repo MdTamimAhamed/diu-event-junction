@@ -9,5 +9,7 @@ DIU Event Junction is a full-stack project. It is one of my best university proj
 > [!NOTE]
 > This is the front-end part of the project. I have the back-end part as well in a private repo.
 
+**Project Screenshots:**  
+_Will be adding it soon..._
 
 
