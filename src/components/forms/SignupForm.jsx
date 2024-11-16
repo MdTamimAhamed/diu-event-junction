@@ -26,7 +26,7 @@ function SignupForm({ setSuccessMsg, setFaildMsg }) {
     };
 
     try {
-      const response = await axios.post(`${baseUrl}/user/signup`, formData, {
+      const response = await axios.post(`${baseUrl}/user/signup`, formData, { //http://localhost:5001/user/signup
         headers: { "Content-Type": "application/json" },
       });
 

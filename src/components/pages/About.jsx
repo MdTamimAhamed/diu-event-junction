@@ -4,7 +4,6 @@ import HomeHeader from '../headers/HomeHeader'
 import Footer from '../footer/Footer'
 import {FaFacebookSquare,FaGithubSquare} from 'react-icons/fa'
 import {RiInstagramFill} from 'react-icons/ri'
-import { Link} from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 
 function About() {

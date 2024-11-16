@@ -7,9 +7,6 @@ function LayoutAdminDashboard() {
   const location = useLocation();
   const [showSidebar, setShowSidebar] = useState(true);
 
-  // useEffect(() => {
-  //   setShowSidebar(!location.pathname.includes('/preview-event'));
-  // }, [location]);
 
   return (
     <>

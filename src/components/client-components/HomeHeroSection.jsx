@@ -140,7 +140,7 @@ function HomeHeroSection({title,type,thumbnail,dates,times, venue}) {
 
                         <div className='flex items-end'>
                             {eventData && eventData.length > 0  && ( 
-                            <button onClick={() => handlePreview(eventData[2]._id)} className='bg-white text-black font-medium px-6 py-2 rounded'>Event Details</button>
+                            <button onClick={() => handlePreview(eventData[0]._id)} className='bg-white text-black font-medium px-6 py-2 rounded'>Event Details</button>
                             ) }
                            
                             <div>

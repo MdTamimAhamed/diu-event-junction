@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import RoleSelectBtn from "../../Utilities/buttons/RoleSelectBtn";
+import LoginHeader from "../headers/LoginHeader";
 import SignupForm from "../forms/SignupForm";
 import AdminSignupForm from "../forms/AdminSignupForm";
+
 
 function Signup() {
   const [selectRole, setSelectRole] = useState("");
@@ -12,7 +14,7 @@ function Signup() {
   return (
     <>
       <div>
-        <p className=" text-center">Ahsan: Put the header here...</p>
+        <LoginHeader/>
       </div>
       <div className="h-[90vh] flex flex-col justify-center items-center">
         <p

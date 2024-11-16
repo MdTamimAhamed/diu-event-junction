@@ -9,24 +9,24 @@ import jwtDecode from 'jwt-decode'
 
 
 function Contact() {
-  // const [userLoggedIn, setUserLoggedIn] = useState(null);
+  const [userLoggedIn, setUserLoggedIn] = useState(null);
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("user-token");
+  useEffect(() => {
+    const token = localStorage.getItem("user-token");
 
-  //   if (token) {
-  //     const userDetails = jwtDecode(token);
-  //     const userName = userDetails.firstName;
-  //     const userNameFirstLetter = userName.charAt(0);
-  //     setUserLoggedIn(userNameFirstLetter);
-  //   }
-  // }, []);
+    if (token) {
+      const userDetails = jwtDecode(token);
+      const userName = userDetails.firstName;
+      const userNameFirstLetter = userName.charAt(0);
+      setUserLoggedIn(userNameFirstLetter);
+    }
+  }, []);
   return (
     <>
    <div className=''>
         {/* home header*/}
         <HomeHeader
-          // user={userLoggedIn}
+          user={userLoggedIn}
         />
 
 
@@ -36,7 +36,7 @@ function Contact() {
             pageName='Contact Us'
           />
 
-          <div className='relative -mt-44 max-w-4xl bg-white h-auto mx-auto pb-20 rounded-md '>
+          <div className='relative -mt-44 max-w-4xl bg-white h-auto mx-auto pb-20 rounded-md mb-20'>
                 <h1 className='text-center font-bold text-3xl pt-20'>Welcome to <span className=" text-black text-3xl font-bold">DIU <span className='text-secondary font-bold' >Event</span> Junction</span></h1>
                 
                 <p className='relative w-[580px] mx-auto text-center mt-2'>
@@ -63,7 +63,7 @@ function Contact() {
                         
                     </div>
                     <div className='w-[580px] mx-auto mt-8'>
-                    <button className=' w-full bg-secondary  text-white px-4 py-4 rounded'>Subscribe</button> </div>
+                    <button className=' w-full bg-secondary  text-white px-4 py-[10px] rounded'>Send Message</button> </div>
             </div>
         </div>
 

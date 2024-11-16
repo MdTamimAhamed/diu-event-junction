@@ -11,8 +11,6 @@ import {
 } from "react-icons/md";
 
 
-import {FaSearch} from "react-icons/fa";
-
 
 import { useNavigate, useLocation, Link } from "react-router-dom";
 

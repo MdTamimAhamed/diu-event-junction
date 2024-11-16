@@ -39,6 +39,8 @@ function CreateEventForm() {
   const dates = [eventStartDate, eventEndDate]
   const times = [eventStartTime, eventEndTime]
 
+  const [success, setSuccess] = useState('');
+
   const adminToken = localStorage.getItem("admin-token");
   useEffect(() => {
     if (adminToken) {
@@ -70,7 +72,10 @@ function CreateEventForm() {
       const response = await axios.post(`${baseUrl}/admin/add-event`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log(response.data);
+      const {message} = response.data;
+      if(response.status === 200){
+        setSuccess(message);
+      }
 
 
     } catch (error) {
@@ -134,7 +139,7 @@ function CreateEventForm() {
         <div className="flex items-start gap-6">
           <button onClick={handleRoute}><MdKeyboardBackspace className=" text-[1.4em]"/></button>
           <div className="">
-            <div className="text-xl font-medium">Add New Event</div>
+            <div className="text-xl font-medium text-red">Post New Event</div>
             <p className="text-sm text-gray">Fill up this form to post your event.</p>
           </div>
         </div>
@@ -356,7 +361,7 @@ function CreateEventForm() {
               />
           </div>
 
-          <div className="mt-16 flex">
+          <div className="mt-16  flex">
               <p className="mr-2 w-[20%]">Organizer's Details:</p>
               <ReactQuill 
                 className="w-full placeholder:not-italic" 
@@ -369,49 +374,12 @@ function CreateEventForm() {
           </div>
 
 
-          {/* <div className="mt-16">
-              <p>Organizer's logo <span className="text-gray text-xs">(optional)</span></p>
-              <div className=" relative w-full flex flex-col justify-center items-center p-8 border-[2px] border-dashed border-black bg-[rgba(0,0,0,0.04)] rounded-md">
-                <div className=" relative   w-[130px] py-[2px]">
-                  <input 
-                    className=" z-10 relative opacity-0" 
-                    type="file" 
-                    name="orgThumbnail"
-                    accept=".jpg, .png, .jpeg"
-                    onChange={(e)=>setLogoFile(e.target.files)}
-                    multiple
-                  />
-                  <button 
-                    className=" absolute left-0 top-0 flex justify-center items-center  text-md text-white rounded-md w-full h-full bg-black " type="button">
-                      <MdOutlineFileUpload className="text-xl mr-2"/> 
-                      Upload
-                  </button>
-                  </div>
-                    {logoFile && logoFile.length > 0 ? (
-                      <div>
-                        <p>Selected files:</p>
-                        <ul>
-                          {Array.from(logoFile).map((file, index) => (
-                            <div key={index}>
-                              <li >{file.name}</li>
-                              <button
-                                className="ml-2 text-red-700"
-                                type="button"
-                                onClick={() => setLogoFile(null)}
-                                >
-                                <MdDeleteForever className="text-red text-lg" />
-                              </button>
-                            </div>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </div>
-            </div> */}
+          
         </div>
 
         <div className="w-full flex justify-start mt-20">
-          <button type="submit" className=" text-white px-8 bg-black  py-2 rounded-md ml-10 mb-10">Post Event</button>
+          <button type="submit" className=" text-white mt-10 px-8 bg-black  py-2 rounded-md ml-10">Post Event</button>
+          <div className={`${success? 'block':'hidden'} mt-10 ml-10 bg-green-100 text-green-600 rounded px-4 py-2`}>{success}</div>
         </div>
 
       </form>

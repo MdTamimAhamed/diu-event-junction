@@ -6,9 +6,9 @@ import {FiSearch} from 'react-icons/fi'
 function DashHeader() {
     const token = localStorage.getItem('admin-token')
     const userDetails = jwtDecode(token)
-
     const userName = userDetails.firstName
     const userNameFirstLetter = userName.charAt(0)
+
   return (
     <>
         <div className='w-full border-b-2 border-secondary bg-white '>

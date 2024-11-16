@@ -47,22 +47,22 @@ function HomeHeader({user}) {
             <div className='flex flex-wrap'>
               <ul className={`flex flex-wrap items-center gap-x-12 ${bgClass? 'text-black':'text-white'} `}>
                 <li>
-                  <Link to="/"><span>Home</span></Link>
+                  <Link to="/"><span className='hover:border-b-2 border-secondary' >Home</span></Link>
                 </li>
                 <li>
-                  <Link to="#"><span>Events</span></Link>
+                  <Link to="#"><span className='hover:border-b-2 border-secondary'>Events</span></Link>
                 </li>
                 <li>
-                  <Link to="#"><span>Clubs</span></Link>
+                  <Link to="#"><span className='hover:border-b-2 border-secondary'>Clubs</span></Link>
                 </li>
                 <li>
-                  <Link to="#"><span>Gallery</span></Link>
+                  <Link to="#"><span className='hover:border-b-2 border-secondary'>Gallery</span></Link>
                 </li>
                 <li>
-                  <Link to="/about"><span>About</span></Link>
+                  <Link to="/about"><span className='hover:border-b-2 border-secondary'>About</span></Link>
                 </li>
                 <li>
-                  <Link to="#"><span>Contact</span></Link>
+                  <Link to="/contact"><span className='hover:border-b-2 border-secondary'>Contact</span></Link>
                 </li>
                 <FiSearch className='mr-24 ml-10'/>
               </ul>
